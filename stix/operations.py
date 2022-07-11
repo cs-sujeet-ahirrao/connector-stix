@@ -18,6 +18,7 @@ from django.conf import settings
 from stix2validator import validate_string
 from connectors.core.connector import get_logger, ConnectorError
 from .constants import *
+
 try:
     from integrations.crudhub import trigger_ingest_playbook, download_file_from_cyops
 except:
@@ -278,6 +279,8 @@ def extract_indicators(config, params, **kwargs):
         if len(indicators) > 0:
             if mode == 'Create as Feed Records in FortiSOAR':
                 create_pb_id = params.get("create_pb_id")
+                if '/' in create_pb_id:
+                    create_pb_id = create_pb_id.split("/")[-1]
                 trigger_ingest_playbook(indicators, create_pb_id, parent_env=kwargs.get('env', {}),
                                         batch_size=1000, dedup_field="pattern")
                 return 'Successfully triggered playbooks to create feed records'

@@ -81,7 +81,7 @@
           "onchange": {
             "Create as Feed Records in FortiSOAR": [
               {
-                "title": "Record Creation Playbook IRI",
+                "title": "Record Creation Playbook IRI or UUID",
                 "description": "",
                 "type": "text",
                 "name": "create_pb_id",
